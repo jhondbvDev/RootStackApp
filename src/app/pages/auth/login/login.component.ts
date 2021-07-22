@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['home']);
+      this.router.navigate(['job']);
     }
   }
 
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(d.access_token);
         this.authService.setUserInfo();
         this.isLoginFailed = false;
-        this.router.navigate(['home']);
+        this.router.navigate(['job']);
       },
       err => {
         this.isLoginFailed = true;
