@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
   onLogOut(): void {
     this.authService.logout();
-
+    this.router.navigate(['login']);
   }
 
   getErrorMessage(field:string):string{
