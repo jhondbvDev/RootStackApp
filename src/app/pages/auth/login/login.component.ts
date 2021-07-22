@@ -50,11 +50,6 @@ export class LoginComponent implements OnInit {
       })
   }
 
-  onLogOut(): void {
-    this.authService.logout();
-    this.router.navigate(['login']);
-  }
-
   getErrorMessage(field:string):string{
     let message:string ='';
     if(this.loginForm.get(field)?.errors?.required){
