@@ -1,0 +1,7 @@
+<mat-toolbar color="primary" class="app-header">
+    <div><span>RootStack APP</span></div>
+    <span *ngIf='isLoggedIn'>{{getUserName}}</span>
+    <span class="nav-tool-items">
+      <a mat-button  *ngIf='isLoggedIn'  routerLinkActive="active" (click)="onLogout()">LogOut</a>
+    </span>
+  </mat-toolbar>

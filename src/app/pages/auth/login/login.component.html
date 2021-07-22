@@ -1,0 +1,40 @@
+<div fxLayout="row"  class="login-wrapper" fxLayoutAlign="center center"  >
+    <mat-card class="box"    >
+        <mat-card-header>
+            <mat-card-title>Log in</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="form">
+            <form [formGroup]="loginForm"  >
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Username"
+                     autocomplete="off" 
+                     formControlName="email" 
+                     required>
+                     <mat-error  style="color:red" *ngIf="isValidField('email')">
+                         {{getErrorMessage('email')}}
+                     </mat-error>
+                </mat-form-field>
+                <br>
+                
+                <mat-form-field class="full-width-input">
+                    <input type="password" matInput 
+                    placeholder="Password" 
+                    formControlName="password" 
+                    autocomplete="off"
+                        required>
+                        <mat-error  style="color:red" *ngIf="isValidField('password')">
+                            {{getErrorMessage('password')}}
+                        </mat-error>
+                </mat-form-field>   
+                <mat-error *ngIf="isLoginFailed">{{errorMessage}}</mat-error>
+               
+            </form>
+           
+        </mat-card-content>
+        <mat-card-actions>
+           
+            <button [disabled]="loginForm.invalid" mat-raised-button class="btn-block" (click)="onLogin(loginForm.value)"  color="primary">Log in</button>
+        </mat-card-actions>
+
+    </mat-card>
+</div>

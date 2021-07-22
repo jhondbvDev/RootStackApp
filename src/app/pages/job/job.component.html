@@ -1,0 +1,63 @@
+<div>
+    <div fxLayout="row" fxFill>
+        <div fxFlex="30" style="margin: 20px 0 100px 20px;">
+            <mat-card class="jobList">
+                <mat-card-title>Jobs list</mat-card-title>
+                <mat-card-content>
+                    <div fxFlexFill fxLayout="column">
+                        <cdk-virtual-scroll-viewport [itemSize]="50" class="jobContent" >
+                        <div class="jobContainer">
+                            <div #jobItem *ngFor="let job of response?.data let i=index" [ngClass]="selectedItem == job.id?'active':''" 
+                             (click)="openWindow(job)" class="jobItem"  >
+                               
+                                <h1>{{job.title}}</h1>
+                                <h2>{{job.assigned_to}}</h2>
+                                <span>{{job.description}}</span>
+                            </div>
+                        </div>
+                    </cdk-virtual-scroll-viewport>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <mat-paginator 
+                    (page)="onPageChange($event)"
+                    [pageSize]="15"
+                    
+                    [length]="response?.total">
+                        
+                    </mat-paginator>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div fxFlex="70"  fxLayoutAlign="center center">
+            <agm-map  [latitude]="lat"  [longitude]="lng" [fitBounds]="true" [zoom]="zoom">
+                <agm-marker [animation]="'BOUNCE'"   [latitude]="myLattitude" [longitude]="myLongitude">
+                    <agm-snazzy-info-window [maxWidth]="300" [closeWhenOthersOpen]="true" >
+                        <ng-template>
+                            <h1>My current position</h1>
+                           
+                        </ng-template>
+                    </agm-snazzy-info-window>
+                </agm-marker>
+
+                <agm-marker   *ngFor="let location of response?.data let i=index"
+                [latitude]="onCovenrtNumber(location.latitude)" [longitude]="onCovenrtNumber(location.longitude)"
+                [agmFitBounds]="true"
+                [iconUrl]="'assets/images/pingPurple.png'" >
+                <agm-snazzy-info-window [isOpen]="isInfoWindowOpen(location.id)" [maxWidth]="300" [maxHeight]="400" [closeWhenOthersOpen]="true" >
+                    <ng-template>
+                        <div >
+                            <h1>{{location.title}}</h1>
+                            <h2>{{location.assigned_to}}</h2>
+                        </div>
+                        <div class="infoButtons" style="text-align: center;">
+                            <button mat-raised-button color="primary"
+                            (click)="onPingMap(location)">Check</button>
+                            </div>
+                    </ng-template>
+                </agm-snazzy-info-window>
+                </agm-marker>
+            </agm-map>
+        </div>
+    </div>
+</div>
