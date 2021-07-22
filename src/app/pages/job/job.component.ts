@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { IJob, IJobs } from 'src/app/_models/job.interface';
 import { IResponse } from 'src/app/_models/response.interface';
 import { JobService } from 'src/app/_services/job.service';
@@ -11,6 +12,8 @@ import { JobService } from 'src/app/_services/job.service';
 })
 export class JobComponent implements OnInit {
 
+  @ViewChild(CdkVirtualScrollViewport) virtualScroll: CdkVirtualScrollViewport | undefined;
+  
   // Properties
   response: IResponse | undefined;
   lat = 0;
@@ -98,8 +101,9 @@ export class JobComponent implements OnInit {
       this.selectedItem = job.id;
       this._cdr.detectChanges();
     }, 100);
-   
-    console.log(`index ${job.id}`);
+    let index = this.response?.data.findIndex(x=>x.id==job.id);
+    this.virtualScroll?.scrollToIndex(index!*180);
+    console.log(`index ${index}`);
   }
 
 }

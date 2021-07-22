@@ -5,11 +5,12 @@
                 <mat-card-title>Jobs list</mat-card-title>
                 <mat-card-content>
                     <div fxFlexFill fxLayout="column">
-                        <cdk-virtual-scroll-viewport [itemSize]="50" class="jobContent" >
+                        <cdk-virtual-scroll-viewport [itemSize]="1" class="jobContent" >
                         <div class="jobContainer">
                             <div #jobItem *ngFor="let job of response?.data let i=index" [ngClass]="selectedItem == job.id?'active':''" 
                              (click)="openWindow(job)" class="jobItem"  >
-                               
+                               <span>{{i}}</span>
+                               <span>{{job.id}}</span>
                                 <h1>{{job.title}}</h1>
                                 <h2>{{job.assigned_to}}</h2>
                                 <span>{{job.description}}</span>
